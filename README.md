@@ -16,14 +16,14 @@ If using a Gemfile: insert `gem 'law_school_outcomes'` then run `bundle install`
 
 #### Employment Summary Reports
 
-Google search "[SCHOOL NAME] EMPLOYMENT SUMMARY FOR [year] GRADUATES" to find an Employment Summary Report hosted in PDF format. Note its url and year.
+Google search `[SCHOOL NAME] EMPLOYMENT SUMMARY FOR [year] GRADUATES` to find an Employment Summary Report hosted in PDF format. Note its url and year.
 
 Given the report's url and year, read its contents into memory:
 
 ```` rb
 require 'law_school_outcomes'
 
-report = EmploymentSummaryReport.new(year: 2015, url: "http://www.law.my-university.edu/some-random-path/some-report.pdf")
+report = LawSchoolOutcomes::EmploymentSummaryReport.new(year: 2015, url: "http://www.law.my-university.edu/some-random-path/some-report.pdf")
 
 report.school_info
 #> {:name=>"MY UNIVERSITY", :address=>{:street=>"123 MAIN STREET", :city=>"MY CITY", :state=>"ZZ", :zip=>"10101"}, :phone=>"123-456-7890", :website=>"http://www.law.my-university.edu/"}
