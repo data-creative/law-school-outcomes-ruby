@@ -1,41 +1,85 @@
-# LawSchoolOutcomes
+# Law School Outcomes - Ruby
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/law_school_outcomes`. To experiment with that code, run `bin/console` for an interactive prompt.
+Law schools accredited by the American Bar Association (ABA) publish in a standardized PDF format reports of employment outcomes for recent graduates.
 
-TODO: Delete this and the text above, and describe your gem
+Use the `law_school_outcomes` ruby library to process these PDF files into memory for further use.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+```` sh
+gem install law_school_outcomes
+````
 
-```ruby
-gem 'law_school_outcomes'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install law_school_outcomes
+Else if using a Gemfile: insert `gem 'law_school_outcomes'` and run `bundle install`.
 
 ## Usage
 
-TODO: Write usage instructions here
+#### Employment Summary Reports
 
-## Development
+Google search "[SCHOOL NAME] EMPLOYMENT SUMMARY FOR [year] GRADUATES" to find an Employment Summary Report hosted in PDF format. Note its url and year.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Given the report's url and year, read its contents into memory:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```` rb
+require 'law_school_outcomes'
 
-## Contributing
+report = EmploymentSummaryReport.new(year: 2015, url: "http://www.law.my-university.edu/some-random-path/some-report.pdf")
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/law_school_outcomes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+report.school_info
+#> {:name=>"MY UNIVERSITY", :address=>{:street=>"123 MAIN STREET", :city=>"MY CITY", :state=>"ZZ", :zip=>"10101"}, :phone=>"123-456-789", :website=>"http://www.law.my-university.edu/"}
 
+report.total_grads #> 465
 
-## License
+report.employment_status_results
+#> [{:status=>"Employed - Bar Passage Required", :count=>310},
+#   {:status=>"Employed - J.D. Advantage", :count=>65},
+#   {:status=>"Employed - Professional Position", :count=>6},
+#   {:status=>"Employed - Non-Professional Position", :count=>1},
+#   {:status=>"Employed - Law School/University Funded", :count=>38},
+#   {:status=>"Employed - Undeterminable", :count=>0},
+#   {:status=>"Pursuing Graduate Degree Full Time", :count=>7},
+#   {:status=>"Unemployed - Start Date Deferred", :count=>3},
+#   {:status=>"Unemployed - Not Seeking", :count=>4},
+#   {:status=>"Unemployed - Seeking", :count=>30},
+#   {:status=>"Employment Status Unknown", :count=>1
+#  }]
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+report.employment_type_results
+#> [{:type=>"Law Firms (Solo)", :count=>0},
+#   {:type=>"Law Firms (2 - 10)", :count=>34},
+#   {:type=>"Law Firms (11 - 25)", :count=>11},
+#   {:type=>"Law Firms (26 - 50)", :count=>6},
+#   {:type=>"Law Firms (51 - 100)", :count=>14},
+#   {:type=>"Law Firms (101 - 250)", :count=>15},
+#   {:type=>"Law Firms (251 - 500)", :count=>25},
+#   {:type=>"Law Firms (501 +)", :count=>109},
+#   {:type=>"Law Firms (Unknown Size)", :count=>1},
+#   {:type=>"Business & Industry", :count=>51},
+#   {:type=>"Government", :count=>79},
+#   {:type=>"Pub. Int.", :count=>40},
+#   {:type=>"Clerkships - Federal", :count=>16},
+#   {:type=>"Clerkships - State & Local", :count=>13},
+#   {:type=>"Clerkships - Other", :count=>2},
+#   {:type=>"Education", :count=>4},
+#   {:type=>"Employer Type Unknown", :count=>0}]
 
+report.employment_location_results
+#> [{:type=>"State - Largest Employment",
+#    :location=>"District Of Columbia",
+#    :count=>"221"},
+#   {:type=>"State - 2nd Largest Employment",
+#    :location=>"New York",
+#    :count=>"58"},
+#   {:type=>"State - 3rd Largest Employment",
+#    :location=>"Virginia",
+#    :count=>"32"},
+#   {:type=>"Employed in Foreign Countries",
+#    :location=>"Employed in Foreign Countries",
+#    :count=>8}]
+
+# etc...
+````
+
+## [Contributing](/CONTRIBUTING.md)
+
+## [License](/LICENSE)
