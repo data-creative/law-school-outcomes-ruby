@@ -26,7 +26,7 @@ require 'law_school_outcomes'
 report = EmploymentSummaryReport.new(year: 2015, url: "http://www.law.my-university.edu/some-random-path/some-report.pdf")
 
 report.school_info
-#> {:name=>"MY UNIVERSITY", :address=>{:street=>"123 MAIN STREET", :city=>"MY CITY", :state=>"ZZ", :zip=>"10101"}, :phone=>"123-456-789", :website=>"http://www.law.my-university.edu/"}
+#> {:name=>"MY UNIVERSITY", :address=>{:street=>"123 MAIN STREET", :city=>"MY CITY", :state=>"ZZ", :zip=>"10101"}, :phone=>"123-456-7890", :website=>"http://www.law.my-university.edu/"}
 
 report.total_grads #> 465
 
@@ -77,7 +77,8 @@ report.employment_location_results
 #    :location=>"Employed in Foreign Countries",
 #    :count=>8}]
 
-# etc...
+report.results
+#> etc ...
 ````
 
 ## [Contributing](/CONTRIBUTING.md)
