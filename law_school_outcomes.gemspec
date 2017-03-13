@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["MJ Rossetti"]
   spec.email         = ["datacreativellc@gmail.com"]
 
-  spec.summary       = %q{Law schools accredited by the American Bar Association (ABA) publish in a standardized PDF format reports of employment outcomes for recent graduates. Process these PDF files into memory for further use.}
+  spec.summary       = %q{Process PDF reports of employment outcomes for recent graduates of ABA-accredited law schools.}
   spec.description   = %q{Law schools accredited by the American Bar Association (ABA) publish in a standardized PDF format reports of employment outcomes for recent graduates. Process these PDF files into memory for further use.}
   spec.homepage      = "https://github.com/data-creative/law-school-outcomes-ruby"
   spec.license       = "MIT"
@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "factory_girl", "~> 4.7"
   spec.add_development_dependency "pry", "~> 0.10"
   spec.add_development_dependency "yard"
   spec.add_development_dependency "redcarpet"

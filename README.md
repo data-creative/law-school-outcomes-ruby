@@ -1,8 +1,8 @@
 # Law School Outcomes - Ruby
 
-Law schools accredited by the American Bar Association (ABA) publish in a standardized PDF format reports of employment outcomes for recent graduates.
+Process PDF reports of employment outcomes for recent graduates of ABA-accredited law schools.
 
-Use the `law_school_outcomes` ruby library to process these PDF files into memory for further use.
+Law schools accredited by the American Bar Association (ABA) publish in a standardized PDF format reports of employment outcomes for recent graduates. Use the `law_school_outcomes` ruby library to process these PDF files into memory for further use.
 
 ## Installation
 
@@ -10,7 +10,7 @@ Use the `law_school_outcomes` ruby library to process these PDF files into memor
 gem install law_school_outcomes
 ````
 
-Else if using a Gemfile: insert `gem 'law_school_outcomes'` and run `bundle install`.
+If using a Gemfile: insert `gem 'law_school_outcomes'` then run `bundle install`.
 
 ## Usage
 
