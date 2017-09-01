@@ -3,16 +3,32 @@ require 'spec_helper'
 module LawSchoolOutcomes
   RSpec.describe EmploymentSummaryReport do
     describe '#results' do
-      let(:year){ 2015 }
-      let(:url){ "http://www.law.my-university.edu/some-path/some-report.pdf" }
-      let(:report){ described_class.new(year: year, url: url) }
+      context "when parsing remote file" do
+        let(:year){ 2015 }
+        let(:url){ "http://www.law.my-university.edu/some-path/some-report.pdf" }
+        let(:report){ described_class.new(year: year, url: url) }
 
-      before(:each) do
-        allow_any_instance_of(described_class).to receive(:read_lines).and_return(mock_pdf_lines)
+        before(:each) do
+          allow_any_instance_of(described_class).to receive(:read_lines).and_return(mock_pdf_lines)
+        end
+
+        it "provides employment summary data" do
+          expect(report.results).to eql(mock_results)
+        end
       end
 
-      it "provides employment summary data" do
-        expect(report.results).to eql(mock_results)
+      context "when parsing remote file" do
+        let(:year){ 2016 }
+        let(:file_path){ "___________" }
+        let(:report){ described_class.new(year: year, path: file_path) }
+
+        before(:each) do
+          allow_any_instance_of(described_class).to receive(:read_lines).and_return(mock_pdf_lines)
+        end
+
+        it "provides employment summary data" do
+          expect(report.results).to eql(mock_results)
+        end
       end
     end
 
