@@ -12,10 +12,12 @@ module LawSchoolOutcomes
   class EmploymentSummaryReport
     class LineCountError < StandardError ; end
 
-    attr_reader :url, :year, :lines
+    attr_reader :url, :year, :lines, :path
 
-    def initialize(url: nil, year: 2015)
+    # pass a year, and either a remote url or a local file path
+    def initialize(url: nil, year: 2015, path: nil)
       @url = url
+      @path = path
       @year = year
       @lines = read_lines
     end
@@ -77,7 +79,11 @@ module LawSchoolOutcomes
     private
 
     def file_source
-      File.join(File.expand_path("../../../reports/#{year}/", __FILE__), "#{domain}.pdf")
+      if url
+        File.join(File.expand_path("../../../reports/#{year}/", __FILE__), "#{domain}.pdf")
+      elsif path
+        path
+      end
     end
 
     def url_source
