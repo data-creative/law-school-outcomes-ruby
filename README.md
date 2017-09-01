@@ -1,30 +1,36 @@
 # Law School Outcomes - Ruby
 
-Process PDF reports of employment outcomes for recent graduates of ABA-accredited law schools.
+Law schools accredited by the [American Bar Association (ABA)](https://www.americanbar.org/aba.html) publish in a standardized PDF format reports of employment outcomes for recent graduates.
 
-Law schools accredited by the American Bar Association (ABA) publish in a standardized PDF format reports of employment outcomes for recent graduates. Use the `law_school_outcomes` ruby library to process these PDF files into memory for further use.
+Use this library to parse the reports into machine-readable data for further use.
 
 ## Installation
+
+If using a Gemfile, insert `gem 'law_school_outcomes'` on a new line, then run `bundle install`. Otherwise install from the command-line:
 
 ```` sh
 gem install law_school_outcomes
 ````
 
-If using a Gemfile: insert `gem 'law_school_outcomes'` then run `bundle install`.
-
 ## Usage
 
-#### Employment Summary Reports
+To parse a report, use either a hosted URL location or a local file path:
 
-Google search `[SCHOOL NAME] EMPLOYMENT SUMMARY FOR [year] GRADUATES` to find an Employment Summary Report hosted in PDF format. Note its url and year.
-
-Given the report's url and year, read its contents into memory:
-
-```` rb
+```ruby
 require 'law_school_outcomes'
 
-report = LawSchoolOutcomes::EmploymentSummaryReport.new(year: 2015, url: "http://www.law.my-university.edu/some-random-path/some-report.pdf")
+# if using a hosted location:
+url = "http://www.law.my-university.edu/some-random-path/some-report.pdf"
+report = LawSchoolOutcomes::EmploymentSummaryReport.new(year: 2015, url: url)
 
+# else if using a local file path:
+file_path = ______________
+report = LawSchoolOutcomes::EmploymentSummaryReport.new(year: 2015, path: file_path)
+```
+
+Results:
+
+```ruby
 report.school_info
 #> {:name=>"MY UNIVERSITY", :address=>{:street=>"123 MAIN STREET", :city=>"MY CITY", :state=>"ZZ", :zip=>"10101"}, :phone=>"123-456-7890", :website=>"http://www.law.my-university.edu/"}
 
