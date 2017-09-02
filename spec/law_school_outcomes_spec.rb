@@ -8,6 +8,7 @@ end
 
 describe LawSchoolOutcomes, ".get_schools" do
   let(:schools){ described_class.get_schools }
+  let(:school_names){ schools.map{|s| s["name"]} }
 
   # @note currently using the results of a python script which does this
   #it "visits the ABA website to find an updated list of accredited schools" do
@@ -16,6 +17,8 @@ describe LawSchoolOutcomes, ".get_schools" do
 
   it "produces a list of schools" do
     expect(schools.count).to be > 200
+    expect(schools.first.keys).to match_array(["name", "url", "year"])
+    expect(school_names.include?("YALE")).to eql(true)
   end
 end
 
