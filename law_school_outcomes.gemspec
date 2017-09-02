@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["MJ Rossetti"]
   spec.email         = ["datacreativellc@gmail.com"]
 
-  spec.summary       = %q{Process PDF reports of employment outcomes for recent graduates of ABA-accredited law schools.}
-  spec.description   = %q{Law schools accredited by the American Bar Association (ABA) publish in a standardized PDF format reports of employment outcomes for recent graduates. Process these PDF files into memory for further use.}
+  spec.summary       = %q{____________}
+  spec.description   = %q{____________}
   spec.homepage      = "https://github.com/data-creative/law-school-outcomes-ruby"
   spec.license       = "MIT"
 
@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "redcarpet"
   spec.add_development_dependency "github-markup"
 
-  spec.add_dependency "pdf-reader", "~> 2.0"
-  spec.add_dependency "domainatrix", "~> 0.0.11"
+  #spec.add_dependency "pdf-reader", "~> 2.0"
+  #spec.add_dependency "domainatrix", "~> 0.0.11"
 
 end
