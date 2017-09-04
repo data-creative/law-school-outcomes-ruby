@@ -38,7 +38,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "redcarpet"
   spec.add_development_dependency "github-markup"
 
-  spec.add_dependency "httparty", "~> 0.13.3"
+  spec.add_dependency "httparty", "~> 0.13.7"
+  spec.add_dependency "selenium-webdriver", "~> 3.4.0"
   #spec.add_dependency "pdf-reader", "~> 2.0"
   #spec.add_dependency "domainatrix", "~> 0.0.11"
 
