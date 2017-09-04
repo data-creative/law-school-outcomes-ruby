@@ -13,19 +13,36 @@ module LawSchoolOutcomes
   end
 
 
-  def self.find_report(school:, year:)
+  def self.find_report(school:, reporting_year:)
     driver = Selenium::WebDriver.for(:firefox)
     driver.navigate.to("http://google.com")
-    #input = driver.find_element(name: 'q')
-    #search_tearm = "#{school[:name]} EMPLOYMENT SUMMARY FOR #{year} GRADUATES"
-    #input.send_keys(search_tearm) # populates search term input element
-    #input.submit # presses the search button and redirects to a page of search terms
 
-    # todo: gather search result urls
-    #binding.pry
+    begin
+      input = driver.find_element(name: 'q')
+      search_tearm = "#{school[:name]} EMPLOYMENT SUMMARY FOR #{reporting_year} GRADUATES"
+      input.send_keys(search_tearm) # populates search term input element
+      input.submit # presses the search button and redirects to a page of search terms
 
-    driver.close
-    return {school: school, year: year, search_results: []}
+      sleep(2) # give the browser enough time to perform the request/response cycle
+
+      links = driver.find_element(:id, "search").find_elements(:tag_name, "a")
+      hrefs = links.map{|a| a.attribute("href") }
+      hrefs.reject!{|href| href.include?("google.com") || href.include?("googleusercontent.com") || href.include?("javascript:;")} # filter-out google links and javascript voids
+
+      #binding.pry
+      best_guess = "" # todo: get first school-domain-hosted url ending with .pdf
+    ensure
+      driver.close
+
+      return {
+        school: school,
+        reporting_year: reporting_year,
+        search_results: {
+          best_guess: best_guess || "N/A - ERROR",
+          hrefs: hrefs || []
+        }
+      }
+    end
   end
 
   #def self.find_reports

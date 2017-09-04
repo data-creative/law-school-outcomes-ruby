@@ -24,15 +24,21 @@ end
 
 describe LawSchoolOutcomes, ".find_report" do
   let(:school){ {name: "APPALACHIAN", url: "http://www.asl.edu/"} }
-  let(:year){ 2016 }
-  let(:results){ described_class.find_report(school: school, year: year) }
+  #let(:domain){ _________(url) }
+  let(:reporting_year){ 2016 }
+  let(:results){ described_class.find_report(school: school, reporting_year: reporting_year) }
 
   #it "searches the Internet for report URLs" do
   #  #expect(results.count).to be > 200
   #end
 
   it "produces search metadata in JSON format" do
-    expect(results.keys).to match_array([:school, :year, :search_results])
+    expect(results.keys).to match_array([:school, :reporting_year, :search_results])
+    expect(results[:school]).to eql(school)
+    expect(results[:reporting_year]).to eql(reporting_year)
+    expect(results[:search_results][:hrefs].any?).to eql(true)
+    #expect(results[:search_results][:best_guess]).to include(domain)
+    #expect(results[:search_results][:best_guess]).to include(".pdf")
   end
 end
 
