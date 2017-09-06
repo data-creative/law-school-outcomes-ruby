@@ -1,57 +1,51 @@
 require "spec_helper"
 
-describe LawSchoolOutcomes, "version" do
-  it "has a version number" do
-    expect(LawSchoolOutcomes::VERSION).not_to be nil
-  end
-end
+#describe LawSchoolOutcomes, ".best_guess" do
+#  let(:urls){
+#    [
+#      "http://asl.edu/wp-content/uploads/2015/08/EmploymentSummary-2016.pdf",
+#      "https://law.vanderbilt.edu/2016-EmploymentSummary.pdf",
+#      "http://employmentsummary.abaquestionnaire.org/",
+#      "https://lawschooltuitionbubble.wordpress.com/2017/05/15/class-of-2016-employment-report-corrected/",
+#      "https://www.usnews.com/best-colleges/appalachian-state-2906",
+#      "http://abovethelaw.com/2015/08/this-law-schools-enrollment-is-down-by-almost-80-percent/",
+#      "http://www.collegedata.com/cs/data/college/college_pg01_tmpl.jhtml?schoolId=476",
+#      "https://www.arc.gov/research/ResearchReports.asp?F_Category=7",
+#      "https://www.arc.gov/images/grantsandfunding/POWER2016/POWER2016_Awards_WHFactSheet_8-24-2016.pdf"
+#    ]
+#  }
+#
+#  it "should return the first url which is hosted by the school and is a PDF file" do
+#    expect(described_class.best_guess(urls)).to eql("http://asl.edu/wp-content/uploads/2015/08/EmploymentSummary-2016.pdf")
+#  end
+#end
 
-describe LawSchoolOutcomes, ".get_schools" do
-  let(:schools){ described_class.get_schools }
-  let(:school_names){ schools.map{|s| s["name"]} }
-
-  # @note currently using the results of a python script which does this
-  #it "visits the ABA website to find an updated list of accredited schools" do
-  #  pending # expect mock page to include at least 200 schools
-  #end
-
-  it "produces a list of schools" do
-    expect(schools.count).to be > 200
-    expect(schools.first.keys).to match_array(["name", "url", "year"])
-    expect(school_names.include?("YALE")).to eql(true)
-  end
-end
-
-describe LawSchoolOutcomes, ".find_report" do
-  let(:school){ {name: "APPALACHIAN", url: "http://www.asl.edu/"} }
-  #let(:domain){ _________(url) }
-  let(:reporting_year){ 2016 }
-  let(:results){ described_class.find_report(school: school, reporting_year: reporting_year) }
-
-  #it "searches the Internet for report URLs" do
-  #  #expect(results.count).to be > 200
-  #end
-
-  it "produces search metadata in JSON format" do
-    expect(results.keys).to match_array([:school, :reporting_year, :search_results])
-    expect(results[:school]).to eql(school)
-    expect(results[:reporting_year]).to eql(reporting_year)
-    expect(results[:search_results][:hrefs].any?).to eql(true)
-    #expect(results[:search_results][:best_guess]).to include(domain)
-    #expect(results[:search_results][:best_guess]).to include(".pdf")
-  end
-end
+#describe LawSchoolOutcomes, ".possible_report_urls" do
+#  let(:school){ {name: "APPALACHIAN", url: "http://www.asl.edu/"} }
+#  let(:reporting_year){ 2016 }
+#  let(:results){ described_class.find_report(school: school, reporting_year: reporting_year) } #todo: mock
+#  let(:urls){
+#    [
+#      "http://asl.edu/wp-content/uploads/2015/08/EmploymentSummary-2016.pdf",
+#      "https://law.vanderbilt.edu/2016-EmploymentSummary.pdf",
+#      "http://employmentsummary.abaquestionnaire.org/",
+#      "https://lawschooltuitionbubble.wordpress.com/2017/05/15/class-of-2016-employment-report-corrected/",
+#      "https://www.usnews.com/best-colleges/appalachian-state-2906",
+#      "http://abovethelaw.com/2015/08/this-law-schools-enrollment-is-down-by-almost-80-percent/",
+#      "http://www.collegedata.com/cs/data/college/college_pg01_tmpl.jhtml?schoolId=476",
+#      "https://www.arc.gov/research/ResearchReports.asp?F_Category=7",
+#      "https://www.arc.gov/images/grantsandfunding/POWER2016/POWER2016_Awards_WHFactSheet_8-24-2016.pdf"
+#    ]
+#  }
+#
+#  it "searches the Internet for potential report URLs" do
+#    expect(results).to eql(urls)
+#  end
+#end
 
 #describe LawSchoolOutcomes, ".find_reports" do
-#  let(:school){ {} }
-#  let(:results){ described_class.find_reports }
-#
 #  it "searches the Internet for report URLs" do
-#    expect(results.count).to be > 200
-#  end
-#
-#  it "produces search metadata in JSON format" do
-#    expect(results.keys).to include("search_results")
+#    pending
 #  end
 #end
 
