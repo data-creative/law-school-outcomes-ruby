@@ -15,24 +15,43 @@ module LawSchoolOutcomes
     JSON_SOURCE = "https://raw.githubusercontent.com/data-creative/law-schools-py/master/data/schools.json"
 
     def self.json_source
-      response = HTTParty.get(JSON_SOURCE)
-      JSON.parse(response)
+      @json_source ||= HTTParty.get(JSON_SOURCE)
     end
 
     def self.all
-      json_source.map{|obj| self.new(obj.symbolize_keys) }
+      JSON.parse(json_source).map{|obj| self.new(obj.symbolize_keys) }
+    end
+
+    def self.all_domains
+      @all_domains ||= self.all.map{|school| school.domain }
+    end
+
+    def self.duplicate_domains
+      all_domains.select{|domain| all_domains.count(domain) > 1}.uniq #> ["psu", "widener"]
     end
 
     def parsed_url
       Domainatrix.parse(url)
     end
 
-    def short_name
+    def domain
       parsed_url.domain
     end
 
-    def top_level_domain
-      parsed_url.domain_with_public_suffix
+    def subdomain
+      parsed_url.subdomain
     end
+
+    def host
+      parsed_url.host
+    end
+
+    def short_name
+      self.class.duplicate_domains.include?(domain) ? subdomain : domain
+    end
+
+    #def top_level_domain
+    #  parsed_url.domain_with_public_suffix
+    #end
   end
 end

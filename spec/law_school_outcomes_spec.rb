@@ -43,20 +43,7 @@ require "spec_helper"
 #  end
 #end
 
-#describe LawSchoolOutcomes, ".find_reports" do
-#  it "searches the Internet for report URLs" do
-#    pending
-#  end
-#end
-
-#describe LawSchoolOutcomes, ".download_reports" do
-#  it "downloads PDF-formatted reports from all report URLs" do
-#    pending
-#  end
-#end
-
-#describe LawSchoolOutcomes, ".parse_reports" do
-#  it "transforms PDF-formatted reports into summary data in JSON format" do
-#    pending
-#  end
+# ...
+#it "should not necessarily assume the report is hosted on 'law.' subdomains" do
+#  expect(described_class.school_domain(url)).to eql("my-school.edu")
 #end

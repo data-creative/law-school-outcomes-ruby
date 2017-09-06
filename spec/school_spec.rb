@@ -25,10 +25,28 @@ describe LawSchoolOutcomes::School, ".all" do
   end
 end
 
-#describe LawSchoolOutcomes::School, "#domain" do
-#  let(:url){ "http://law.my-school.edu/" }
+describe LawSchoolOutcomes::School, "#short_name" do
+  let(:school){ described_class.new(name: "My Law School", url: "http://law.my-school.edu/") }
+
+  it "provides a clean, space-less, abbreviated name" do
+    expect(school.short_name).to eql("my-school")
+  end
+
+  it "proxies as a unique identifier" do
+    mock_schools_path = File.expand_path("../mock/schools.json", __FILE__)
+    local_source = File.read(mock_schools_path)
+    allow(described_class).to receive(:json_source).and_return(local_source)
+
+    schools = described_class.all
+    short_names = schools.map{|school| school.short_name }
+    expect(short_names.uniq.count).to eql(schools.count)
+  end
+end
+
+#describe LawSchoolOutcomes::School, "#top_level_domain" do
+#  let(:school){ School.new(name: "My Law School", url: "http://law.my-school.edu/") }
 #
-#  it "should not necessarily assume the report is hosted on 'law.' subdomains" do
-#    expect(described_class.school_domain(url)).to eql("my-school.edu")
+#  it "provide a more gran, space-less, abbreviated name" do
+#    expect(school.short_name.to eql("my-school")
 #  end
 #end
