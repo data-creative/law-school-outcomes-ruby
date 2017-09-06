@@ -1,5 +1,6 @@
 require "httparty"
 require "domainatrix"
+require "active_support/core_ext/hash/keys"
 
 module LawSchoolOutcomes
   class School
@@ -13,10 +14,13 @@ module LawSchoolOutcomes
 
     JSON_SOURCE = "https://raw.githubusercontent.com/data-creative/law-schools-py/master/data/schools.json"
 
-    def self.all
+    def self.json_source
       response = HTTParty.get(JSON_SOURCE)
-      parsed_response = JSON.parse(response)
-      parsed_response.map{|h| self.class.new(h) }
+      JSON.parse(response)
+    end
+
+    def self.all
+      json_source.map{|obj| self.new(obj.symbolize_keys) }
     end
 
     def parsed_url
