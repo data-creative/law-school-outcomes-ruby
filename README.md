@@ -11,26 +11,21 @@ gem install law_school_outcomes
 Get a list of ABA-approved law schools:
 
 ```ruby
-schools = LawSchoolOutcomes.get_schools
-schools.first #> {uuid: "78", name: "MY UNIVERSITY", url: "http://www.law.my-university.edu/"}
+schools = LawSchoolOutcomes::School.all
+schools.first #> {name: "MY UNIVERSITY", url: "http://www.law.my-university.edu/", year: 1942}
 ```
 
-Search the Internet for PDF-formatted "Employment Summary Reports" hosted on the university's domain, then note the url (or possible urls):
+Search the Internet for annual "Employment Summary Reports" hosted by the university, and allow a user to accept (confirm) or reject a url:
 
 ```ruby
-LawSchoolOutcomes.find_reports
-```
+schools.each do |school|
+  (2010..2016).to_a.each do |reporting_year|
+    annual_report = LawSchoolOutcomes::AnnualEmploymentReport(school: school, reporting_year: reporting_year)
 
-Download all reports (if desired):
-
-```ruby
-LawSchoolOutcomes.download_reports
-```
-
-Parse all reports:
-
-```ruby
-LawSchoolOutcomes.parse_reports
+    annual_report.search_results # search for results
+    annual_report.confirm_url("some-url") # writes to file
+  end
+end
 ```
 
 ## [Contributing](/CONTRIBUTING.md)

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe LawSchoolOutcomes::School, ".all" do
-  let(:schools){ described_class.all } # todo: mock
+  let(:schools){ described_class.all }
   let(:school_names){ schools.map{|s| s.name} }
 
   before do
@@ -42,11 +42,3 @@ describe LawSchoolOutcomes::School, "#short_name" do
     expect(short_names.uniq.count).to eql(schools.count)
   end
 end
-
-#describe LawSchoolOutcomes::School, "#top_level_domain" do
-#  let(:school){ School.new(name: "My Law School", url: "http://law.my-school.edu/") }
-#
-#  it "provide a more gran, space-less, abbreviated name" do
-#    expect(school.short_name.to eql("my-school")
-#  end
-#end

@@ -49,9 +49,5 @@ module LawSchoolOutcomes
     def short_name
       self.class.duplicate_domains.include?(domain) ? subdomain : domain
     end
-
-    #def top_level_domain
-    #  parsed_url.domain_with_public_suffix
-    #end
   end
 end
