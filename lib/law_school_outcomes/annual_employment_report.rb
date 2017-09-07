@@ -14,8 +14,9 @@ module LawSchoolOutcomes
     end
 
     def search_results
+      return @search_results if @search_results # cache to avoid re-scraping
+      driver = Selenium::WebDriver.for(:firefox)
       begin
-        driver = Selenium::WebDriver.for(:firefox)
         driver.navigate.to("http://google.com")
         input = driver.find_element(name: 'q')
         input.send_keys(search_term) # populates search term input element
@@ -25,14 +26,15 @@ module LawSchoolOutcomes
         urls = links.map{|a| a.attribute("href") }
         urls.reject!{|url| url.include?("google.com") || url.include?("googleusercontent.com") || url.include?("javascript:;")} # filter-out google links and javascript voids
       ensure
+        @search_results = urls || []
         driver.close
       end
-      return urls || []
+      return @search_results
     end
 
-    def best_guess_report_url(reporting_year)
-      urls = search_results(reporting_year)
-      urls.find{|url| File.extname(url) == ".pdf" && url.include?(domain)}
+    def best_guess_url
+      #binding.pry
+      search_results.find{|url| File.extname(url) == ".pdf" && url.include?(@school.host)}
     end
   end
 end
